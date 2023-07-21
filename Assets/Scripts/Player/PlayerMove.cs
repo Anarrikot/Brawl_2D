@@ -7,15 +7,38 @@ public class PlayerMove : MonoBehaviour
     public float speed;
     public DynamicJoystick dynamicJoystick;
     public Rigidbody2D rb;
+    public GameObject attackSprite;
+    public Transform playerSprite;
+    public StaticJostic staticJoystick;
 
-    public void FixedUpdate()
+    private void Start()
+    {
+        attackSprite.SetActive(false);
+    }
+
+    private void Update()
+    {
+        if (staticJoystick.isActive)
+        {
+            if (staticJoystick.Horizontal != 0 || staticJoystick.Vertical != 0)
+            {
+                attackSprite.SetActive(true);
+                float angle = Mathf.Atan2(staticJoystick.Vertical, staticJoystick.Horizontal) * Mathf.Rad2Deg;
+                attackSprite.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
+            }
+        }
+        else
+            attackSprite.SetActive(false);
+    }
+
+        public void FixedUpdate()
     {
         if (dynamicJoystick.isActive)
         {
             if (dynamicJoystick.Horizontal > 0)
-                transform.localScale = new Vector3(1, 1, 1);
+                playerSprite.localScale = new Vector3(1, 1, 1);
             else
-                transform.localScale = new Vector3(-1, 1, 1);
+                playerSprite.localScale = new Vector3(-1, 1, 1);
             rb.velocity = new Vector2(dynamicJoystick.Horizontal * speed, dynamicJoystick.Vertical * speed);
         }
         else
