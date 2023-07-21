@@ -7,6 +7,7 @@ public class StaticJostic : Joystick
 
     [SerializeField] private float moveThreshold = 1;
     Vector3 startPosition;
+    float angle;
 
     protected override void Start()
     {
@@ -26,10 +27,12 @@ public class StaticJostic : Joystick
     {
         base.OnPointerUp(eventData);
         background.transform.position = startPosition;
+        Spawn_attack_shelly.Instance.Attack(angle);
     }
 
     protected override void HandleInput(float magnitude, Vector2 normalised, Vector2 radius, Camera cam)
     {
         base.HandleInput(magnitude, normalised, radius, cam);
+        angle = Mathf.Atan2(Vertical, Horizontal) * Mathf.Rad2Deg;
     }
 }
