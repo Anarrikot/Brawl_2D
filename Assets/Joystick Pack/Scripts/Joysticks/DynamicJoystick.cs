@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.EventSystems;
 
 public class DynamicJoystick : Joystick
@@ -15,11 +13,12 @@ public class DynamicJoystick : Joystick
         startPosition = background.transform.position;
         MoveThreshold = moveThreshold;
         base.Start();
-        background.gameObject.SetActive(true);
+        background.gameObject.SetActive(false);
     }
 
     public override void OnPointerDown(PointerEventData eventData)
     {
+        background.gameObject.SetActive(true);
         background.anchoredPosition = ScreenPointToAnchoredPosition(eventData.position);
         base.OnPointerDown(eventData);
     }
@@ -28,6 +27,7 @@ public class DynamicJoystick : Joystick
     {
         base.OnPointerUp(eventData);
         background.transform.position = startPosition;
+        background.gameObject.SetActive(false);
     }
 
     protected override void HandleInput(float magnitude, Vector2 normalised, Vector2 radius, Camera cam)
