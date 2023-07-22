@@ -12,6 +12,7 @@ public class Shelly : MyHero
         damage = 300;
         lvl = 1;
         ammo = 3;
+        maxammo = 3;
         hp = 3700;
         maxhp = hp;
         reloadtime = 1;
@@ -19,16 +20,15 @@ public class Shelly : MyHero
     }
     public void Update()
     {
-        
+        Reload();
     }
 
-    public override void Attack()
+    public override void Attack(float angle)
     {
-
-    }
-
-    public override void Reload()
-    {
-
+        if (ammo > 0)
+        {
+            ammo -= 1;
+            spawn_Attack_Shelly.Attack(angle);
+        }
     }
 }

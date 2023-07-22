@@ -27,7 +27,7 @@ public class StaticJostic : Joystick
     {
         base.OnPointerUp(eventData);
         background.transform.position = startPosition;
-        Spawn_attack_shelly.Instance.Attack(angle);
+        MyHero.Instance.Attack(angle);
     }
 
     protected override void HandleInput(float magnitude, Vector2 normalised, Vector2 radius, Camera cam)

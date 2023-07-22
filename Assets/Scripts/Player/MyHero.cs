@@ -1,9 +1,10 @@
 using UnityEngine;
 
-public class MyHero 
+public class MyHero : MonoBehaviour 
 {
     public int damage;
     public int ammo;
+    public int maxammo;
     public int hp;
     public int maxhp;
     public float speed;
@@ -12,8 +13,19 @@ public class MyHero
     public int bullets;
     public int countbulletforsuper;
 
+    private float time;
 
-    public virtual void Attack()
+
+    private static MyHero _instance;
+    public static MyHero Instance
+        => _instance ??= new MyHero();
+
+    public MyHero()
+    {
+        _instance = this;
+    }
+
+    public virtual void Attack(float angle)
     {
 
     }
@@ -28,8 +40,16 @@ public class MyHero
 
     }
 
-    public virtual void Reload()
+    public void Reload()
     {
-
+        if (ammo < maxammo)
+        {
+            time += Time.deltaTime;
+            if (time >= reloadtime)
+            {
+                ammo += 1;
+                time = 0;
+            }
+        }
     }
 }
