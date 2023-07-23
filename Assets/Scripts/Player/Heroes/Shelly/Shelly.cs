@@ -6,7 +6,7 @@ public class Shelly : MyHero
 {
     public Spawn_attack_shelly spawn_Attack_Shelly;
 
-    public void Start()
+    public override void Start()
     {
         bullets = 5;
         damage = 300;
@@ -16,10 +16,11 @@ public class Shelly : MyHero
         hp = 3700;
         maxhp = hp;
         reloadtime = 1;
-        
+        base.Start();
     }
-    public void Update()
+    public override void Update()
     {
+        base.Update();
         Reload();
     }
 

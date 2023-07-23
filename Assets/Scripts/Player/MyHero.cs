@@ -1,4 +1,6 @@
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MyHero : MonoBehaviour 
 {
@@ -13,6 +15,9 @@ public class MyHero : MonoBehaviour
     public int bullets;
     public int countbulletforsuper;
 
+    public GameObject HPslide;
+    public Text HPtext;
+
     private float time;
 
 
@@ -23,6 +28,16 @@ public class MyHero : MonoBehaviour
     public MyHero()
     {
         _instance = this;
+    }
+
+    public virtual void Start()
+    {
+        HPtext.text = hp.ToString(); 
+    }
+
+    public virtual void Update()
+    {
+        ShowHP();
     }
 
     public virtual void Attack(float angle)
@@ -51,5 +66,11 @@ public class MyHero : MonoBehaviour
                 time = 0;
             }
         }
+    }
+
+    public void ShowHP()
+    {
+        HPtext.transform.position = Camera.main.WorldToScreenPoint(transform.position);
+        HPtext.transform.position = new Vector3(HPtext.transform.position.x, (float)(HPtext.transform.position.y + 57.5), HPtext.transform.position.z);
     }
 }

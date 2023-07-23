@@ -3,7 +3,7 @@ using UnityEngine;
 public class Bullet_shelly : MonoBehaviour
 {
     private float speed = 4f;
-    private float timeAlive = 0.7f;
+    private float timeAlive = 0.65f;
     public Rigidbody2D rb;
     public Vector2 direction;
 
@@ -13,5 +13,13 @@ public class Bullet_shelly : MonoBehaviour
 
         Destroy(gameObject, timeAlive);
         rb.velocity = direction * speed;
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Enemy") || collision.CompareTag("Wall"))
+        {
+            Destroy(gameObject);
+        }
     }
 }
