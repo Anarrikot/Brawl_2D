@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -18,7 +19,10 @@ public class MyHero : MonoBehaviour
     public GameObject HPslide;
     public Text HPtext;
 
-    private float time;
+    private float timeReload;
+    private float timeStartHeal;
+    private float timeHeal;
+    private float percentOfHeal = 0.13f;
 
 
     private static MyHero _instance;
@@ -32,38 +36,69 @@ public class MyHero : MonoBehaviour
 
     public virtual void Start()
     {
-        HPtext.text = hp.ToString(); 
+        TakeDamage(1500);
+        HPtext.text = hp.ToString();
+        Debug.Log(Screen.height);
     }
 
     public virtual void Update()
     {
         ShowHP();
+        if (hp < maxhp) 
+        {
+            timeStartHeal += Time.deltaTime;
+            if (timeStartHeal >= 3)
+            {
+                Heal();
+            }
+        }
     }
 
     public virtual void Attack(float angle)
     {
-
+        timeHeal = 0;
+        timeStartHeal = 0;
     }
     
-    public  void TakeDamage()
+    public  void TakeDamage(int damage)
     {
-
+        hp -= damage;
+        HPslide.transform.localScale = new Vector3((float)(hp) / maxhp, HPslide.transform.localScale.y, HPslide.transform.localScale.z);
+        float newPosX = -(1f - HPslide.transform.localScale.x) / 2;
+        HPslide.transform.localPosition = new Vector3(newPosX, HPslide.transform.localPosition.y, 0f);
     }
 
     public void Heal()
     {
-
+        timeHeal += Time.deltaTime;
+        if (timeHeal >= 1)
+        {
+            if (hp <= maxhp - Mathf.Round(maxhp * percentOfHeal))
+            {
+                hp += Convert.ToInt32(Mathf.Round(maxhp * percentOfHeal));
+                timeHeal = 0;
+            }
+            else
+            {
+                hp = maxhp;
+                timeStartHeal = 0;
+            }
+            HPtext.text = hp.ToString();
+            HPslide.transform.localScale = new Vector3((float)(hp) / maxhp, HPslide.transform.localScale.y, HPslide.transform.localScale.z);
+            float newPosX = -(1f - HPslide.transform.localScale.x) / 2;
+            HPslide.transform.localPosition = new Vector3(newPosX, HPslide.transform.localPosition.y, 0f);
+        }
     }
 
     public void Reload()
     {
         if (ammo < maxammo)
         {
-            time += Time.deltaTime;
-            if (time >= reloadtime)
+            timeReload += Time.deltaTime;
+            if (timeReload >= reloadtime)
             {
                 ammo += 1;
-                time = 0;
+                timeReload = 0;
             }
         }
     }
@@ -71,6 +106,6 @@ public class MyHero : MonoBehaviour
     public void ShowHP()
     {
         HPtext.transform.position = Camera.main.WorldToScreenPoint(transform.position);
-        HPtext.transform.position = new Vector3(HPtext.transform.position.x, (float)(HPtext.transform.position.y + 57.5), HPtext.transform.position.z);
+        HPtext.transform.position = new Vector3(HPtext.transform.position.x, (float)(HPtext.transform.position.y + Screen.height * 0.075), HPtext.transform.position.z);
     }
 }

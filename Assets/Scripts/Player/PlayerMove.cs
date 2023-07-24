@@ -36,9 +36,15 @@ public class PlayerMove : MonoBehaviour
         if (dynamicJoystick.isActive)
         {
             if (dynamicJoystick.Horizontal > 0)
+            {
                 playerSprite.localScale = new Vector3(1, 1, 1);
+                attackSprite.transform.localScale = new Vector3(1, 1, 1);
+            }
             else
+            {
                 playerSprite.localScale = new Vector3(-1, 1, 1);
+                attackSprite.transform.localScale = new Vector3(-1, 1, 1);
+            }
             rb.velocity = new Vector2(dynamicJoystick.Horizontal * speed, dynamicJoystick.Vertical * speed);
         }
         else

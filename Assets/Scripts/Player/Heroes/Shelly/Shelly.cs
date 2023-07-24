@@ -26,6 +26,7 @@ public class Shelly : MyHero
 
     public override void Attack(float angle)
     {
+        base.Attack(angle);
         if (ammo > 0)
         {
             ammo -= 1;

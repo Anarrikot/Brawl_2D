@@ -63,6 +63,8 @@
     <Compile Include="Assets\Scripts\Player\Heroes\Shelly\Shelly.cs" />
     <Compile Include="Assets\Joystick Pack\Scripts\Joysticks\StaticJosticSuper.cs" />
     <Compile Include="Assets\Joystick Pack\Scripts\Joysticks\StaticJostic.cs" />
+    <Compile Include="Assets\Scripts\Environment\Box.cs" />
+    <Compile Include="Assets\Scripts\UI\Menu.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

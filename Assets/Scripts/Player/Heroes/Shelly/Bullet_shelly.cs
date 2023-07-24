@@ -17,6 +17,11 @@ public class Bullet_shelly : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if (collision.CompareTag("Box"))
+        {
+            collision.GetComponent<Box>().TakeDamage(MyHero.Instance.damage);
+            Destroy(gameObject);
+        }
         if (collision.CompareTag("Enemy") || collision.CompareTag("Wall"))
         {
             Destroy(gameObject);
