@@ -30,6 +30,7 @@ public class Shelly : MyHero
         if (ammo > 0)
         {
             ammo -= 1;
+            AmmoList[ammo].transform.localScale = new Vector3 (0, AmmoList[ammo].transform.localScale.y, AmmoList[ammo].transform.localScale.z);
             spawn_Attack_Shelly.Attack(angle);
         }
     }

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -19,6 +20,10 @@ public class MyHero : MonoBehaviour
     public GameObject HPslide;
     public Text HPtext;
 
+    public GameObject Ammoslide;
+    public List<GameObject> AmmoList;
+    public GameObject AmmoBackground;
+
     private float timeReload;
     private float timeStartHeal;
     private float timeHeal;
@@ -36,9 +41,9 @@ public class MyHero : MonoBehaviour
 
     public virtual void Start()
     {
+        SetAmmo();
         TakeDamage(1500);
         HPtext.text = hp.ToString();
-        Debug.Log(Screen.height);
     }
 
     public virtual void Update()
@@ -97,6 +102,7 @@ public class MyHero : MonoBehaviour
             timeReload += Time.deltaTime;
             if (timeReload >= reloadtime)
             {
+                AmmoList[ammo].transform.localScale = new Vector3((float)(1f / maxammo - 0.01), AmmoList[ammo].transform.localScale.y, AmmoList[ammo].transform.localScale.z);
                 ammo += 1;
                 timeReload = 0;
             }
@@ -107,5 +113,31 @@ public class MyHero : MonoBehaviour
     {
         HPtext.transform.position = Camera.main.WorldToScreenPoint(transform.position);
         HPtext.transform.position = new Vector3(HPtext.transform.position.x, (float)(HPtext.transform.position.y + Screen.height * 0.075), HPtext.transform.position.z);
+    }
+
+    public void SetAmmo()
+    {
+        if (maxammo > 1)
+        {
+            float scaleAmmo = (float)(1f / maxammo - 0.01);
+            float distanceBetweenPatrons = (float)(scaleAmmo + 0.04 / (maxammo - 1));
+            float totalWidth = maxammo * distanceBetweenPatrons;
+            float startX = -totalWidth / 2 + distanceBetweenPatrons / 2;
+            for (int i = 0; i < maxammo; i++)
+            {
+                AmmoList.Add(Instantiate(Ammoslide, transform.position, Quaternion.identity));
+                AmmoList[i].transform.parent = transform.parent;
+                AmmoList[i].transform.localScale = new Vector3(scaleAmmo, AmmoList[i].transform.localScale.y, AmmoList[i].transform.localScale.z);
+                float posX = startX + i * distanceBetweenPatrons;
+                AmmoList[i].transform.position = new Vector3(HPslide.transform.position.x + posX, HPslide.transform.position.y - HPslide.GetComponent<SpriteRenderer>().bounds.size.y, HPslide.transform.position.z);
+            }
+        }
+        else
+        {
+            AmmoList.Add(Instantiate(Ammoslide, transform.position, Quaternion.identity));
+            AmmoList[0].transform.parent = transform.parent;
+            AmmoList[0].transform.position = new Vector3(HPslide.transform.position.x, HPslide.transform.position.y - HPslide.GetComponent<SpriteRenderer>().bounds.size.y, HPslide.transform.position.z);
+            AmmoBackground.transform.localScale = AmmoList[0].transform.localScale;
+        }
     }
 }
