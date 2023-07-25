@@ -43,9 +43,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db0cd7f50ae7d15458ab209de1821104, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectilePrefab: {fileID: 0}
-  projectileSpeed: 5
-  numShots: 5
-  duration: 3
-  damage: 10
-  angleBetweenShots: 20
+  projectilePrefab: {fileID: 7000552303626064499, guid: f7d8f3bebe1cc794ab39a74377596abc,
+    type: 3}

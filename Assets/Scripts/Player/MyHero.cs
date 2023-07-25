@@ -15,7 +15,10 @@ public class MyHero : MonoBehaviour
     public float reloadtime;
     public int lvl;
     public int bullets;
+    public int bulletforsuper;
     public int countbulletforsuper;
+
+    public bool isSuperReady = false;
 
     public GameObject HPslide;
     public Text HPtext;
@@ -29,6 +32,7 @@ public class MyHero : MonoBehaviour
     private float timeHeal;
     private float percentOfHeal = 0.13f;
 
+    public PlayerMove playerMove;
 
     private static MyHero _instance;
     public static MyHero Instance
@@ -64,7 +68,13 @@ public class MyHero : MonoBehaviour
         timeHeal = 0;
         timeStartHeal = 0;
     }
-    
+
+    public virtual void Super(float angle)
+    {
+        timeHeal = 0;
+        timeStartHeal = 0;
+    }
+
     public  void TakeDamage(int damage)
     {
         hp -= damage;
@@ -138,6 +148,19 @@ public class MyHero : MonoBehaviour
             AmmoList[0].transform.parent = transform.parent;
             AmmoList[0].transform.position = new Vector3(HPslide.transform.position.x, HPslide.transform.position.y - HPslide.GetComponent<SpriteRenderer>().bounds.size.y, HPslide.transform.position.z);
             AmmoBackground.transform.localScale = AmmoList[0].transform.localScale;
+        }
+    }
+
+    public void CollectSuper(int Count)
+    {
+        bulletforsuper += Count;
+        if (bulletforsuper >= countbulletforsuper)
+        {
+            if (!isSuperReady)
+            {
+                playerMove.staticJosticSuperObject.SetSiblingIndex(playerMove.staticJosticSuperObject.GetSiblingIndex() + 1);
+                isSuperReady = true;
+            }
         }
     }
 }

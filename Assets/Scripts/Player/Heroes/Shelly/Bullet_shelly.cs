@@ -20,6 +20,7 @@ public class Bullet_shelly : MonoBehaviour
         if (collision.CompareTag("Box"))
         {
             collision.GetComponent<Box>().TakeDamage(MyHero.Instance.damage);
+            MyHero.Instance.CollectSuper(1);
             Destroy(gameObject);
         }
         if (collision.CompareTag("Enemy") || collision.CompareTag("Wall"))

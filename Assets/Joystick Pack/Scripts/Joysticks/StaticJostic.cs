@@ -8,6 +8,9 @@ public class StaticJostic : Joystick
     [SerializeField] private float moveThreshold = 1;
     Vector3 startPosition;
     float angle;
+    public bool isActiveAttack;
+    public bool isMoveHandle;
+    Vector2 tapPosition;
 
     protected override void Start()
     {
@@ -19,19 +22,36 @@ public class StaticJostic : Joystick
 
     public override void OnPointerDown(PointerEventData eventData)
     {
+        isMoveHandle = false;
+        isActiveAttack = true;
         background.anchoredPosition = ScreenPointToAnchoredPosition(eventData.position);
         base.OnPointerDown(eventData);
+        tapPosition = ScreenPointToAnchoredPosition(eventData.position);
     }
 
     public override void OnPointerUp(PointerEventData eventData)
     {
         base.OnPointerUp(eventData);
         background.transform.position = startPosition;
-        MyHero.Instance.Attack(angle);
+        if (tapPosition == ScreenPointToAnchoredPosition(eventData.position))
+            MyHero.Instance.Attack(angle);
+        else if (isMoveHandle && tapPosition != ScreenPointToAnchoredPosition(eventData.position))
+            MyHero.Instance.Attack(angle);
+        isActiveAttack = false;
     }
 
     protected override void HandleInput(float magnitude, Vector2 normalised, Vector2 radius, Camera cam)
     {
+        if (magnitude > 0.2f)
+        {
+            isMoveHandle = true;
+            isActiveAttack = true;
+        }
+        else
+        {
+            isMoveHandle = false;
+            isActiveAttack = false;
+        }
         base.HandleInput(magnitude, normalised, radius, cam);
         angle = Mathf.Atan2(Vertical, Horizontal) * Mathf.Rad2Deg;
     }
