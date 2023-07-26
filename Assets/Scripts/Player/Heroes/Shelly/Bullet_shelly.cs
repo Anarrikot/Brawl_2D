@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class Bullet_shelly : MonoBehaviour
 {
@@ -10,12 +11,11 @@ public class Bullet_shelly : MonoBehaviour
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-
         Destroy(gameObject, timeAlive);
         rb.velocity = direction * speed;
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    public virtual void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Box"))
         {
@@ -23,7 +23,11 @@ public class Bullet_shelly : MonoBehaviour
             MyHero.Instance.CollectSuper(1);
             Destroy(gameObject);
         }
-        if (collision.CompareTag("Enemy") || collision.CompareTag("Wall"))
+        if (collision.CompareTag("Enemy"))
+        {
+            Destroy(gameObject);
+        }
+        if (collision.CompareTag("Wall"))
         {
             Destroy(gameObject);
         }
