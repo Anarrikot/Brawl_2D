@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Bullet_shelly_super : Bullet_shelly
@@ -8,11 +6,15 @@ public class Bullet_shelly_super : Bullet_shelly
     {
         if (collision.CompareTag("Box"))
         {
-            collision.GetComponent<Box>().TakeDamage(MyHero.Instance.damage);
+            collision.GetComponent<Box>().TakeDamage(MyHero.Instance.damageSuper);
             MyHero.Instance.CollectSuper(1);
         }
         if (collision.CompareTag("Enemy"))
         {
+        }
+        if (collision.CompareTag("WallNotDestroy"))
+        {
+            Destroy(gameObject);
         }
     }
 }

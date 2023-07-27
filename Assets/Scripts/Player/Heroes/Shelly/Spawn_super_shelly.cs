@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Spawn_super_shelly : MonoBehaviour
@@ -10,10 +9,10 @@ public class Spawn_super_shelly : MonoBehaviour
 
     public void Attack(float angel)
     {
-        ShootGun(angel);
+        Shoot(angel);
     }
 
-    private void ShootGun(float angel)
+    private void Shoot(float angel)
     {
         transform.rotation = Quaternion.Euler(new Vector3(0, 0, angel));
 

@@ -1,5 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 public class Shelly : MyHero
@@ -9,31 +8,31 @@ public class Shelly : MyHero
 
     public override void Start()
     {
-        bullets = 5;
-        damage = 300;
         lvl = 1;
+        bullets = 5;
+        damage = Convert.ToInt32(Math.Round(300 + 300 * 0.05 * (lvl - 1)));
+        damageSuper = Convert.ToInt32(Math.Round(320 + 320 * 0.05 * (lvl - 1)));
         ammo = 3;
         maxammo = 3;
-        hp = 3700;
+        hp = Convert.ToInt32(Math.Round(3700 + 3700 * 0.05 * (lvl - 1)));
         maxhp = hp;
-        reloadtime = 1;
+        reloadtime = 1.2f;
         countbulletforsuper = 10;
+        timedelayattack = 0.4f;
         base.Start();
     }
-    public override void Update()
-    {
-        base.Update();
-        Reload();
-    }
-
     public override void Attack(float angle)
     {
         base.Attack(angle);
         if (ammo > 0)
         {
-            ammo -= 1;
-            AmmoList[ammo].transform.localScale = new Vector3 (0, AmmoList[ammo].transform.localScale.y, AmmoList[ammo].transform.localScale.z);
-            spawn_Attack_Shelly.Attack(angle);
+            if (timeAttack >= timedelayattack)
+            {
+                ammo -= 1;
+                AmmoList[ammo].transform.localScale = new Vector3(0, AmmoList[ammo].transform.localScale.y, AmmoList[ammo].transform.localScale.z);
+                spawn_Attack_Shelly.Attack(angle);
+                timeAttack = 0;
+            }
         }
     }
 
@@ -44,6 +43,7 @@ public class Shelly : MyHero
         {
             spawn_Supper_Shelly.Attack(angle);
             isSuperReady = false;
+            Cirle_supre.SetActive(false);
             playerMove.staticJosticSuperObject.SetSiblingIndex(playerMove.staticJosticSuperObject.GetSiblingIndex() - 1);
             bulletforsuper = 0;
         }

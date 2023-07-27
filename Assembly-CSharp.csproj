@@ -57,17 +57,23 @@
     <Compile Include="Assets\Scripts\Player\Heroes\Shelly\Spawn_attack_shelly.cs" />
     <Compile Include="Assets\Scripts\UI\TileDestroyer.cs" />
     <Compile Include="Assets\Joystick Pack\Scripts\Base\Joystick.cs" />
+    <Compile Include="Assets\Scripts\Player\Heroes\Nita\Spawn_super_Nita.cs" />
     <Compile Include="Assets\Scripts\UI\Menu.cs" />
     <Compile Include="Assets\Joystick Pack\Scripts\Joysticks\VariableJoystick.cs" />
+    <Compile Include="Assets\Scripts\Player\Heroes\Nita\Spawn_attack_Nita.cs" />
     <Compile Include="Assets\Scripts\Player\Heroes\Shelly\Bullet_shelly.cs" />
+    <Compile Include="Assets\Scripts\Player\Heroes\Shelly\Bullet_shelly_super.cs" />
+    <Compile Include="Assets\Scripts\Player\Heroes\Nita\Bullet_Nita.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerMove.cs" />
     <Compile Include="Assets\Scripts\Player\MyHero.cs" />
     <Compile Include="Assets\Scripts\Player\Heroes\Shelly\Spawn_super_shelly.cs" />
     <Compile Include="Assets\Scripts\Player\Heroes\Shelly\Shelly.cs" />
+    <Compile Include="Assets\Scripts\Player\DestroyBullet.cs" />
     <Compile Include="Assets\Joystick Pack\Scripts\Joysticks\StaticJosticSuper.cs" />
     <Compile Include="Assets\Joystick Pack\Scripts\Joysticks\StaticJostic.cs" />
     <Compile Include="Assets\Scripts\Environment\Box.cs" />
-    <Compile Include="Assets\Scripts\Player\Heroes\Shelly\Bullet_shelly_super.cs" />
+    <Compile Include="Assets\Scripts\Player\Heroes\Nita\Nita.cs" />
+    <Compile Include="Assets\Scripts\Player\FixedScale.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

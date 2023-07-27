@@ -18,7 +18,7 @@ public class PlayerMove : MonoBehaviour
     public float supSpX;
     public float supSpY;
 
-    private void Start()
+    public void Start()
     {
         attackSprite.SetActive(false);
         superSprite.SetActive(false);
@@ -67,12 +67,16 @@ public class PlayerMove : MonoBehaviour
         {
             if (staticJosticSuper.Horizontal != 0 || staticJosticSuper.Vertical != 0)
             {
+                MyHero.Cirle_supre.GetComponent<SpriteRenderer>().color = Color.yellow;
                 superSprite.SetActive(true);
                 float angle = Mathf.Atan2(staticJosticSuper.Vertical, staticJosticSuper.Horizontal) * Mathf.Rad2Deg;
                 superSprite.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
             }
         }
         else
+        {
             superSprite.SetActive(false);
+            MyHero.Cirle_supre.GetComponent<SpriteRenderer>().color = Color.blue;
+        }
     }
 }

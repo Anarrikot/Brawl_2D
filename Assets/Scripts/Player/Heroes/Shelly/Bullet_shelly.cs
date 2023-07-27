@@ -3,12 +3,12 @@ using UnityEngine.Tilemaps;
 
 public class Bullet_shelly : MonoBehaviour
 {
-    private float speed = 4f;
-    private float timeAlive = 0.65f;
+    private readonly float speed = 4f;
+    private readonly float timeAlive = 0.65f;
     public Rigidbody2D rb;
     public Vector2 direction;
 
-    private void Start()
+    public void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         Destroy(gameObject, timeAlive);

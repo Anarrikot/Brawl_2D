@@ -7,12 +7,14 @@ using UnityEngine.UI;
 public class MyHero : MonoBehaviour 
 {
     public int damage;
+    public int damageSuper;
     public int ammo;
     public int maxammo;
     public int hp;
     public int maxhp;
     public float speed;
     public float reloadtime;
+    public float timedelayattack;
     public int lvl;
     public int bullets;
     public int bulletforsuper;
@@ -27,10 +29,13 @@ public class MyHero : MonoBehaviour
     public List<GameObject> AmmoList;
     public GameObject AmmoBackground;
 
+    public GameObject Cirle_supre;
+
     private float timeReload;
     private float timeStartHeal;
     private float timeHeal;
-    private float percentOfHeal = 0.13f;
+    public float timeAttack;
+    private readonly float percentOfHeal = 0.13f;
 
     public PlayerMove playerMove;
 
@@ -46,7 +51,7 @@ public class MyHero : MonoBehaviour
     public virtual void Start()
     {
         SetAmmo();
-        TakeDamage(1500);
+        timeAttack = timedelayattack;
         HPtext.text = hp.ToString();
     }
 
@@ -61,6 +66,8 @@ public class MyHero : MonoBehaviour
                 Heal();
             }
         }
+        Reload();
+        timeAttack += Time.deltaTime;
     }
 
     public virtual void Attack(float angle)
@@ -160,6 +167,7 @@ public class MyHero : MonoBehaviour
             {
                 playerMove.staticJosticSuperObject.SetSiblingIndex(playerMove.staticJosticSuperObject.GetSiblingIndex() + 1);
                 isSuperReady = true;
+                Cirle_supre.SetActive(true);
             }
         }
     }
