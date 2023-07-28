@@ -4,7 +4,7 @@ using UnityEngine;
 public class Nita : MyHero
 {
     public Spawn_attack_Nita spawn_Attack_Nita;
-    public Spawn_super_shelly spawn_Supper_Shelly;
+    public Spawn_super_Nita spawn_Super_Nita;
 
     public override void Start()
     {
@@ -19,6 +19,8 @@ public class Nita : MyHero
         reloadtime = 1.2f;
         countbulletforsuper = 5;
         timedelayattack = 0.4f;
+        isHiroAttackTrow = false;
+        isHiroSuperTrow = true;
         base.Start();
     }
     public override void Attack(float angle)
@@ -41,7 +43,7 @@ public class Nita : MyHero
         base.Attack(angle);
         if (isSuperReady)
         {
-            spawn_Supper_Shelly.Attack(angle);
+            spawn_Super_Nita.Attack(angle);
             isSuperReady = false;
             Cirle_supre.SetActive(false);
             playerMove.staticJosticSuperObject.SetSiblingIndex(playerMove.staticJosticSuperObject.GetSiblingIndex() - 1);

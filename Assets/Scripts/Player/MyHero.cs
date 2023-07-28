@@ -37,6 +37,9 @@ public class MyHero : MonoBehaviour
     public float timeAttack;
     private readonly float percentOfHeal = 0.13f;
 
+    public bool isHiroAttackTrow;
+    public bool isHiroSuperTrow;
+
     public PlayerMove playerMove;
 
     private static MyHero _instance;

@@ -12,20 +12,31 @@ public class PlayerMove : MonoBehaviour
     public StaticJosticSuper staticJosticSuper;
     public RectTransform staticJosticSuperObject;
     public MyHero MyHero;
+    public Collider2D heroCollider;
 
     public float atSpX;
     public float atSpY;
     public float supSpX;
     public float supSpY;
 
+    private Vector2 previousPosition;
+
     public void Start()
     {
+        heroCollider = GetComponent<Collider2D>();
         attackSprite.SetActive(false);
         superSprite.SetActive(false);
         atSpX = attackSprite.transform.localScale.x;
         atSpY = attackSprite.transform.localScale.y;
         supSpX = superSprite.transform.localScale.x;
         supSpY = superSprite.transform.localScale.y;
+
+        previousPosition = transform.position;
+    }
+
+    public void LateUpdate()
+    {
+        previousPosition = transform.position;
     }
 
     public void FixedUpdate()
@@ -35,14 +46,10 @@ public class PlayerMove : MonoBehaviour
             if (dynamicJoystick.Horizontal > 0)
             {
                 playerSprite.localScale = new Vector3(1, 1, 1);
-                attackSprite.transform.localScale = new Vector3(atSpX, atSpY, 1);
-                superSprite.transform.localScale = new Vector3(supSpX, supSpY, 1);
             }
             else
             {
                 playerSprite.localScale = new Vector3(-1, 1, 1);
-                attackSprite.transform.localScale = new Vector3(-atSpX, atSpY, 1);
-                superSprite.transform.localScale = new Vector3(-supSpX, supSpY, 1);
             }
             rb.velocity = new Vector2(dynamicJoystick.Horizontal * speed, dynamicJoystick.Vertical * speed);
         }
@@ -67,16 +74,28 @@ public class PlayerMove : MonoBehaviour
         {
             if (staticJosticSuper.Horizontal != 0 || staticJosticSuper.Vertical != 0)
             {
-                MyHero.Cirle_supre.GetComponent<SpriteRenderer>().color = Color.yellow;
                 superSprite.SetActive(true);
+                MyHero.Cirle_supre.GetComponent<SpriteRenderer>().color = Color.yellow;
                 float angle = Mathf.Atan2(staticJosticSuper.Vertical, staticJosticSuper.Horizontal) * Mathf.Rad2Deg;
                 superSprite.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
+                if (MyHero.isHiroSuperTrow)
+                {
+                    superSprite.GetComponent<FixedScale>().FixeScaleX = supSpX * staticJosticSuper.magnitudeSuper;
+                } 
             }
         }
         else
         {
             superSprite.SetActive(false);
             MyHero.Cirle_supre.GetComponent<SpriteRenderer>().color = Color.blue;
+        }
+    }
+
+    private void OnTriggerStay2D(Collider2D other)
+    {
+        if (other.CompareTag("Wall"))
+        {
+            transform.position = previousPosition;
         }
     }
 }

@@ -9,6 +9,7 @@ TagManager:
   - Box
   - Bullet
   - WallNotDestroy
+  - Entity
   layers:
   - Default
   - TransparentFX

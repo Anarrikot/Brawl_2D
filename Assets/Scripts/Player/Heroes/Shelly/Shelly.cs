@@ -19,6 +19,8 @@ public class Shelly : MyHero
         reloadtime = 1.2f;
         countbulletforsuper = 10;
         timedelayattack = 0.4f;
+        isHiroAttackTrow = false;
+        isHiroSuperTrow = false; 
         base.Start();
     }
     public override void Attack(float angle)

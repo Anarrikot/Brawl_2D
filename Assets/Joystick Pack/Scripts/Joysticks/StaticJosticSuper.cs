@@ -11,6 +11,7 @@ public class StaticJosticSuper : Joystick
     public bool isActiveSuper;
     public bool isMoveHandle;
     Vector2 tapPosition;
+    public float magnitudeSuper;
 
     protected override void Start()
     {
@@ -42,6 +43,10 @@ public class StaticJosticSuper : Joystick
 
     protected override void HandleInput(float magnitude, Vector2 normalised, Vector2 radius, Camera cam)
     {
+        if (magnitude > 1)
+            magnitudeSuper = 1;
+        else
+            magnitudeSuper = magnitude;
         if (magnitude > 0.2f)
         {
             isMoveHandle = true;

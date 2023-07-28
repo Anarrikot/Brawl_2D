@@ -2,8 +2,9 @@ using UnityEngine;
 
 public class Spawn_super_Nita : MonoBehaviour
 {
-    public Bullet_Nita projectilePrefab;
+    public BulletSuperNita projectilePrefab;
 
+    public GameObject startPosition;
 
     public void Attack(float angel)
     {
@@ -12,10 +13,10 @@ public class Spawn_super_Nita : MonoBehaviour
 
     private void Shoot(float angel)
     {
-        transform.rotation = Quaternion.Euler(new Vector3(0, 0, angel));
-        Bullet_Nita projectile = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
-        Vector2 direction = Quaternion.Euler(0, 0, 0) * transform.right;
-        projectile.direction = direction;
-        projectile.transform.rotation = transform.rotation;
+
+        // Создаем экземпляр гранаты
+        BulletSuperNita grenade = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
+        grenade.finishPosition = startPosition.transform.position;
+        grenade.parant = transform.parent.gameObject.transform.parent.gameObject.transform.parent.gameObject;
     }
 }

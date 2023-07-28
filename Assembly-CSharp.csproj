@@ -71,9 +71,11 @@
     <Compile Include="Assets\Scripts\Player\DestroyBullet.cs" />
     <Compile Include="Assets\Joystick Pack\Scripts\Joysticks\StaticJosticSuper.cs" />
     <Compile Include="Assets\Joystick Pack\Scripts\Joysticks\StaticJostic.cs" />
+    <Compile Include="Assets\Scripts\Player\FixedScale.cs" />
     <Compile Include="Assets\Scripts\Environment\Box.cs" />
     <Compile Include="Assets\Scripts\Player\Heroes\Nita\Nita.cs" />
-    <Compile Include="Assets\Scripts\Player\FixedScale.cs" />
+    <Compile Include="Assets\Scripts\Player\Heroes\Nita\Bear_NIta.cs" />
+    <Compile Include="Assets\Scripts\Player\Heroes\Nita\BulletSuperNita.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
