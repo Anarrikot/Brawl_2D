@@ -1,4 +1,6 @@
 using UnityEngine;
+using UnityEngine.AI;
+using UnityEngine.Tilemaps;
 
 public class PlayerMove : MonoBehaviour
 {
@@ -19,8 +21,6 @@ public class PlayerMove : MonoBehaviour
     public float supSpX;
     public float supSpY;
 
-    private Vector2 previousPosition;
-
     public void Start()
     {
         heroCollider = GetComponent<Collider2D>();
@@ -31,12 +31,9 @@ public class PlayerMove : MonoBehaviour
         supSpX = superSprite.transform.localScale.x;
         supSpY = superSprite.transform.localScale.y;
 
-        previousPosition = transform.position;
-    }
-
-    public void LateUpdate()
-    {
-        previousPosition = transform.position;
+        var agent = GetComponent<NavMeshAgent>();
+        agent.updateRotation = false;
+        agent.updateUpAxis = false;
     }
 
     public void FixedUpdate()
@@ -88,14 +85,6 @@ public class PlayerMove : MonoBehaviour
         {
             superSprite.SetActive(false);
             MyHero.Cirle_supre.GetComponent<SpriteRenderer>().color = Color.blue;
-        }
-    }
-
-    private void OnTriggerStay2D(Collider2D other)
-    {
-        if (other.CompareTag("Wall"))
-        {
-            transform.position = previousPosition;
         }
     }
 }

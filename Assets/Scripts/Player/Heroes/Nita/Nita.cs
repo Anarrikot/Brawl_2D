@@ -22,6 +22,8 @@ public class Nita : MyHero
         isHiroAttackTrow = false;
         isHiroSuperTrow = true;
         base.Start();
+
+        spawn_Super_Nita.lvlHero = lvl;
     }
     public override void Attack(float angle)
     {
