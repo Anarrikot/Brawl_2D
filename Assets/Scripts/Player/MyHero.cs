@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEngine.EventSystems.EventTrigger;
 
 public class MyHero : MonoBehaviour 
 {
@@ -17,7 +18,7 @@ public class MyHero : MonoBehaviour
     public float timedelayattack;
     public int lvl;
     public int bullets;
-    public int bulletforsuper;
+    public float bulletforsuper;
     public int countbulletforsuper;
 
     public bool isSuperReady = false;
@@ -41,6 +42,12 @@ public class MyHero : MonoBehaviour
     public bool isHiroSuperTrow;
 
     public PlayerMove playerMove;
+
+    GameObject[] enemies;
+    GameObject[] boxObjects;
+    GameObject[] combinedObjects;
+    protected float angleAttack;
+    protected float angleSuper;
 
     private static MyHero _instance;
     public static MyHero Instance
@@ -73,16 +80,80 @@ public class MyHero : MonoBehaviour
         timeAttack += Time.deltaTime;
     }
 
-    public virtual void Attack(float angle)
+    public virtual void Attack(float angle, bool isAvtoAttack)
     {
         timeHeal = 0;
         timeStartHeal = 0;
+        angleAttack = angle;
+        if (isAvtoAttack)
+        {
+            float closestDistance = Mathf.Infinity;
+            GameObject closestEnemy = null;
+            if (GameObject.FindGameObjectWithTag("Box") == null && GameObject.FindGameObjectWithTag("Enemy") == null)
+            {
+                angleAttack = angle;
+            }
+            else
+            {
+                enemies = GameObject.FindGameObjectsWithTag("Enemy");
+                boxObjects = GameObject.FindGameObjectsWithTag("Box");
+                combinedObjects = new GameObject[enemies.Length + boxObjects.Length];
+                enemies.CopyTo(combinedObjects, 0);
+                boxObjects.CopyTo(combinedObjects, enemies.Length);
+
+
+                foreach (GameObject obj in combinedObjects)
+                {
+                    float distanceToPlayer = Vector3.Distance(obj.transform.position, transform.position);
+
+                    if (distanceToPlayer < closestDistance)
+                    {
+                        closestDistance = distanceToPlayer;
+                        closestEnemy = obj;
+                    }
+                }
+                Vector3 direction = closestEnemy.transform.position - transform.position;
+                angleAttack = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+            }
+        }
     }
 
-    public virtual void Super(float angle)
+    public virtual void Super(float angle, bool isAvtoAttack)
     {
         timeHeal = 0;
         timeStartHeal = 0;
+        angleSuper = angle;
+        if (isAvtoAttack)
+        {
+            float closestDistance = Mathf.Infinity;
+            GameObject closestEnemy = null;
+            if (GameObject.FindGameObjectWithTag("Box") == null && GameObject.FindGameObjectWithTag("Enemy") == null)
+            {
+                angleSuper = angle;
+            }
+            else
+            {
+                enemies = GameObject.FindGameObjectsWithTag("Enemy");
+                boxObjects = GameObject.FindGameObjectsWithTag("Box");
+                combinedObjects = new GameObject[enemies.Length + boxObjects.Length];
+                enemies.CopyTo(combinedObjects, 0);
+                boxObjects.CopyTo(combinedObjects, enemies.Length);
+
+
+                foreach (GameObject obj in combinedObjects)
+                {
+                    float distanceToPlayer = Vector3.Distance(obj.transform.position, transform.position);
+
+                    if (distanceToPlayer < closestDistance)
+                    {
+                        closestDistance = distanceToPlayer;
+                        closestEnemy = obj;
+                    }
+                }
+                Vector3 direction = closestEnemy.transform.position - transform.position;
+                angleSuper = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+            }
+        }
     }
 
     public  void TakeDamage(int damage)
@@ -161,7 +232,7 @@ public class MyHero : MonoBehaviour
         }
     }
 
-    public void CollectSuper(int Count)
+    public void CollectSuper(float Count)
     {
         bulletforsuper += Count;
         if (bulletforsuper >= countbulletforsuper)

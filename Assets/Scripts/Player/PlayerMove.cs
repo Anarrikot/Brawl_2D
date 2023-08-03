@@ -20,6 +20,8 @@ public class PlayerMove : MonoBehaviour
     public float atSpY;
     public float supSpX;
     public float supSpY;
+    public float playerX;
+    public float playerY;
 
     public void Start()
     {
@@ -30,10 +32,14 @@ public class PlayerMove : MonoBehaviour
         atSpY = attackSprite.transform.localScale.y;
         supSpX = superSprite.transform.localScale.x;
         supSpY = superSprite.transform.localScale.y;
+        playerX = playerSprite.transform.localScale.x;
+        playerY = playerSprite.transform.localScale.y;
 
         var agent = GetComponent<NavMeshAgent>();
         agent.updateRotation = false;
         agent.updateUpAxis = false;
+
+        transform.position = new Vector3(transform.position.x, transform.position.y, 0);
     }
 
     public void FixedUpdate()
@@ -42,11 +48,11 @@ public class PlayerMove : MonoBehaviour
         {
             if (dynamicJoystick.Horizontal > 0)
             {
-                playerSprite.localScale = new Vector3(1, 1, 1);
+                playerSprite.localScale = new Vector3(playerX, playerY, 1);
             }
             else
             {
-                playerSprite.localScale = new Vector3(-1, 1, 1);
+                playerSprite.localScale = new Vector3(-playerX, playerY, 1);
             }
             rb.velocity = new Vector2(dynamicJoystick.Horizontal * speed, dynamicJoystick.Vertical * speed);
         }

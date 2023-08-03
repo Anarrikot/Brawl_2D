@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SocialPlatforms;
 
 public class BulletSuperNita : MonoBehaviour
 {
@@ -6,18 +7,25 @@ public class BulletSuperNita : MonoBehaviour
     public Bear_NIta projectilePrefab;
     public GameObject parant;
     public int lvlHero;
+    public Nita nita;
+    public float angle = 0;
 
 
     public void Update()
     {
-        transform.position = Vector3.MoveTowards(transform.position, finishPosition, 0.01f);
+        transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
+        transform.position = Vector3.MoveTowards(transform.position, finishPosition, 0.005f);
         if (transform.position == finishPosition)
         {
-            Bear_NIta grenade = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
-            grenade.transform.position = finishPosition;
-            grenade.transform.parent = parant.transform;
-            grenade.lvl_hero = lvlHero;
+            if (nita.myBear != null)
+                Destroy(nita.myBear.gameObject);
+            Bear_NIta bear = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
+            bear.transform.position = finishPosition;
+            bear.transform.parent = parant.transform;
+            bear.lvl_hero = lvlHero;
+            bear.myNita = nita;
             Destroy(gameObject);
         }
+        angle += 0.2f;
     }
 }

@@ -34,9 +34,9 @@ public class StaticJostic : Joystick
         base.OnPointerUp(eventData);
         background.transform.position = startPosition;
         if (tapPosition == ScreenPointToAnchoredPosition(eventData.position))
-            MyHero.Instance.Attack(angle);
+            MyHero.Instance.Attack(angle, true);
         else if (isMoveHandle && tapPosition != ScreenPointToAnchoredPosition(eventData.position))
-            MyHero.Instance.Attack(angle);
+            MyHero.Instance.Attack(angle, false);
         isActiveAttack = false;
     }
 

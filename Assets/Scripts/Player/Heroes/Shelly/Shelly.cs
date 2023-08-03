@@ -23,27 +23,27 @@ public class Shelly : MyHero
         isHiroSuperTrow = false; 
         base.Start();
     }
-    public override void Attack(float angle)
+    public override void Attack(float angle, bool isAvtoAttack)
     {
-        base.Attack(angle);
+        base.Attack(angle, isAvtoAttack);
         if (ammo > 0)
         {
             if (timeAttack >= timedelayattack)
             {
                 ammo -= 1;
                 AmmoList[ammo].transform.localScale = new Vector3(0, AmmoList[ammo].transform.localScale.y, AmmoList[ammo].transform.localScale.z);
-                spawn_Attack_Shelly.Attack(angle);
+                spawn_Attack_Shelly.Attack(angleAttack);
                 timeAttack = 0;
             }
         }
     }
 
-    public override void Super(float angle)
+    public override void Super(float angle, bool isAvtoAttack)
     {
-        base.Attack(angle);
+        base.Super(angle, isAvtoAttack);
         if (isSuperReady)
         {
-            spawn_Supper_Shelly.Attack(angle);
+            spawn_Supper_Shelly.Attack(angleSuper);
             isSuperReady = false;
             Cirle_supre.SetActive(false);
             playerMove.staticJosticSuperObject.SetSiblingIndex(playerMove.staticJosticSuperObject.GetSiblingIndex() - 1);

@@ -35,9 +35,9 @@ public class StaticJosticSuper : Joystick
         base.OnPointerUp(eventData);
         background.transform.position = startPosition;
         if (tapPosition == ScreenPointToAnchoredPosition(eventData.position))
-            MyHero.Instance.Super(angle);
+            MyHero.Instance.Super(angle, true);
         else if (isMoveHandle && tapPosition != ScreenPointToAnchoredPosition(eventData.position))
-            MyHero.Instance.Super(angle);
+            MyHero.Instance.Super(angle, false);
         isActiveSuper = false;
     }
 
