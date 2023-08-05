@@ -36,6 +36,6 @@ public class Box : MonoBehaviour
     public void ShowHP()
     {
         HPtext.transform.position = Camera.main.WorldToScreenPoint(transform.position);
-        HPtext.transform.position = new Vector3(HPtext.transform.position.x, (float)(HPtext.transform.position.y + Screen.height * 0.07), HPtext.transform.position.z);
+        HPtext.transform.position = new Vector3(HPtext.transform.position.x, (float)(HPtext.transform.position.y + Screen.height * 0.06), HPtext.transform.position.z);
     }
 }

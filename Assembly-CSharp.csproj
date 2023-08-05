@@ -76,6 +76,9 @@
     <Compile Include="Assets\Scripts\Player\Heroes\Nita\BulletSuperNita.cs" />
     <Compile Include="Assets\Scripts\Environment\Box.cs" />
     <Compile Include="Assets\Scripts\Player\Heroes\Nita\Nita.cs" />
+    <Compile Include="Assets\Scripts\Core\WindowsController.cs" />
+    <Compile Include="Assets\Scripts\Core\ComonWindow.cs" />
+    <Compile Include="Assets\Scripts\Core\Main.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
@@ -728,13 +731,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="NavMeshComponents.csproj">
-      <Project>{CE623B5C-CE9F-A2DD-6939-9174A1F43D97}</Project>
-      <Name>NavMeshComponents</Name>
-    </ProjectReference>
     <ProjectReference Include="NavMeshComponentsEditor.csproj">
       <Project>{BB89E803-0AE6-BFCE-FF8F-0E8E7F1AE2FD}</Project>
       <Name>NavMeshComponentsEditor</Name>
+    </ProjectReference>
+    <ProjectReference Include="NavMeshComponents.csproj">
+      <Project>{CE623B5C-CE9F-A2DD-6939-9174A1F43D97}</Project>
+      <Name>NavMeshComponents</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
