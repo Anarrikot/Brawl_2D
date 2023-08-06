@@ -4,7 +4,7 @@ public class Main : MonoBehaviour
 {
     public static Main Instance = null;
 
-    void Awake()
+    public void Awake()
     {
 
         if (Instance == null)
