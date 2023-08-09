@@ -1,9 +1,7 @@
 using System;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using static UnityEngine.EventSystems.EventTrigger;
 
 public class MyHero : MonoBehaviour 
 {
@@ -32,6 +30,9 @@ public class MyHero : MonoBehaviour
 
     public GameObject Cirle_supre;
 
+    public GameObject attackSprite;
+    public GameObject superSprite;
+
     private float timeReload;
     private float timeStartHeal;
     private float timeHeal;
@@ -49,19 +50,11 @@ public class MyHero : MonoBehaviour
     protected float angleAttack;
     protected float angleSuper;
 
-    private static MyHero _instance;
-    public static MyHero Instance
-        => _instance ??= new MyHero();
-
-    public MyHero()
-    {
-        _instance = this;
-    }
-
     public virtual void Start()
     {
         SetAmmo();
         timeAttack = timedelayattack;
+        HPslide.transform.parent = transform.parent;
         HPtext.text = hp.ToString();
     }
 
@@ -154,6 +147,10 @@ public class MyHero : MonoBehaviour
                 angleSuper = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
             }
         }
+        playerMove.staticJosticSuper.colorHandle = playerMove.staticJosticSuper.background.GetComponent<Image>().color;
+        playerMove.staticJosticSuper.colorHandle.a = 0f;
+        playerMove.staticJosticSuper.background.GetComponent<Image>().color = playerMove.staticJosticSuper.colorHandle;
+        playerMove.staticJosticSuper.handle.GetComponent<Image>().color = Color.grey;
     }
 
     public  void TakeDamage(int damage)
@@ -180,7 +177,7 @@ public class MyHero : MonoBehaviour
                 timeStartHeal = 0;
             }
             HPtext.text = hp.ToString();
-            HPslide.transform.localScale = new Vector3((float)(hp) / maxhp, HPslide.transform.localScale.y, HPslide.transform.localScale.z);
+            HPslide.transform.localScale = new Vector3((float)(hp) / maxhp , HPslide.transform.localScale.y, HPslide.transform.localScale.z);
             float newPosX = -(1f - HPslide.transform.localScale.x) / 2;
             HPslide.transform.localPosition = new Vector3(newPosX, HPslide.transform.localPosition.y, 0f);
         }
@@ -202,6 +199,7 @@ public class MyHero : MonoBehaviour
 
     public void ShowHP()
     {
+        HPtext.text = hp.ToString();
         HPtext.transform.position = Camera.main.WorldToScreenPoint(transform.position);
         HPtext.transform.position = new Vector3(HPtext.transform.position.x, (float)(HPtext.transform.position.y + Screen.height * 0.075), HPtext.transform.position.z);
     }
@@ -240,6 +238,12 @@ public class MyHero : MonoBehaviour
             if (!isSuperReady)
             {
                 playerMove.staticJosticSuperObject.SetSiblingIndex(playerMove.staticJosticSuperObject.GetSiblingIndex() + 1);
+
+                playerMove.staticJosticSuper.colorHandle = playerMove.staticJosticSuper.background.GetComponent<Image>().color;
+                playerMove.staticJosticSuper.colorHandle.a = 0.5f;
+                playerMove.staticJosticSuper.background.GetComponent<Image>().color = playerMove.staticJosticSuper.colorHandle;
+                playerMove.staticJosticSuper.handle.GetComponent<Image>().color = Color.yellow;
+
                 isSuperReady = true;
                 Cirle_supre.SetActive(true);
             }

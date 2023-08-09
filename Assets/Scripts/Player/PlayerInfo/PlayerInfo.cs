@@ -5,6 +5,9 @@ using UnityEngine;
 public class PlayerInfo : MonoBehaviour
 {
     public Brawlers myBrawlers = new Brawlers();
+    CSVcontroller CSVcontrol = new CSVcontroller();
+
+    public Brawler activeBravler;
 
     private static PlayerInfo _instance;
     public static PlayerInfo Instance
@@ -19,15 +22,17 @@ public class PlayerInfo : MonoBehaviour
     {
     }
 
-    public void GetInfo()
+    public PlayerInfo GetInfo()
     {
-        foreach (Brawler brawler in myBrawlers.listBrawlers)
-        {
-            if (brawler.unlock == true)
-                continue;
-            brawler.power = 1;
-            brawler.trophi = 0;
-            brawler.unlock = false;
-        }
+        PlayerInfo playerInfo = CSVcontrol.ReadCSV();
+        CSVcontrol.Save(playerInfo);
+        return playerInfo;
+    }
+
+    public Brawler GetInfoActiveBrawler()
+    {
+        Brawler activeBrawler = CSVcontrol.ReadCSVActiveBrawler();
+        CSVcontrol.SaveActiveBrawler(activeBrawler);
+        return activeBrawler;
     }
 }

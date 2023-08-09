@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class StaticJostic : Joystick
 {
@@ -18,6 +19,9 @@ public class StaticJostic : Joystick
         MoveThreshold = moveThreshold;
         base.Start();
         background.gameObject.SetActive(true);
+        colorHandle = handle.GetComponent<Image>().color;
+        colorHandle.a = 0.5f;
+        handle.GetComponent<Image>().color = colorHandle;
     }
 
     public override void OnPointerDown(PointerEventData eventData)
@@ -27,6 +31,9 @@ public class StaticJostic : Joystick
         background.anchoredPosition = ScreenPointToAnchoredPosition(eventData.position);
         base.OnPointerDown(eventData);
         tapPosition = ScreenPointToAnchoredPosition(eventData.position);
+        colorHandle = handle.GetComponent<Image>().color;
+        colorHandle.a = 1f;
+        handle.GetComponent<Image>().color = colorHandle;
     }
 
     public override void OnPointerUp(PointerEventData eventData)
@@ -34,10 +41,13 @@ public class StaticJostic : Joystick
         base.OnPointerUp(eventData);
         background.transform.position = startPosition;
         if (tapPosition == ScreenPointToAnchoredPosition(eventData.position))
-            MyHero.Instance.Attack(angle, true);
+            playerMove.MyHero.Attack(angle, true);
         else if (isMoveHandle && tapPosition != ScreenPointToAnchoredPosition(eventData.position))
-            MyHero.Instance.Attack(angle, false);
+            playerMove.MyHero.Attack(angle, false);
         isActiveAttack = false;
+        colorHandle = handle.GetComponent<Image>().color;
+        colorHandle.a = 0.5f;
+        handle.GetComponent<Image>().color = colorHandle;
     }
 
     protected override void HandleInput(float magnitude, Vector2 normalised, Vector2 radius, Camera cam)

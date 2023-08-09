@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class Joystick : MonoBehaviour, IPointerDownHandler, IDragHandler, IPointerUpHandler
 {
@@ -7,7 +8,6 @@ public class Joystick : MonoBehaviour, IPointerDownHandler, IDragHandler, IPoint
     public float Vertical { get { return (snapY) ? SnapFloat(input.y, AxisOptions.Vertical) : input.y; } }
     public Vector2 Direction { get { return new Vector2(Horizontal, Vertical); } }
 
-    public PlayerMove playerMove;
     Vector3 target_vector;
     Vector3 touch_pos;
     public bool isActive;
@@ -35,17 +35,21 @@ public class Joystick : MonoBehaviour, IPointerDownHandler, IDragHandler, IPoint
     [SerializeField] private bool snapX = false;
     [SerializeField] private bool snapY = false;
 
-    [SerializeField] protected RectTransform background = null;
-    [SerializeField] private RectTransform handle = null;
+    [SerializeField] public RectTransform background = null;
+    [SerializeField] public RectTransform handle = null;
+
+    [SerializeField] public PlayerMove playerMove;
     private RectTransform baseRect = null;
 
     private Canvas canvas;
     private Camera cam;
 
     private Vector2 input = Vector2.zero;
+    public Color colorHandle;
 
     protected virtual void Start()
     {
+        playerMove = FindObjectOfType<PlayerMove>();
         HandleRange = handleRange;
         DeadZone = deadZone;
         baseRect = GetComponent<RectTransform>();

@@ -8,7 +8,6 @@ public class Shelly : MyHero
 
     public override void Start()
     {
-        lvl = 1;
         bullets = 5;
         damage = Convert.ToInt32(Math.Round(300 + 300 * 0.05 * (lvl - 1)));
         damageSuper = Convert.ToInt32(Math.Round(320 + 320 * 0.05 * (lvl - 1)));
@@ -22,6 +21,8 @@ public class Shelly : MyHero
         isHiroAttackTrow = false;
         isHiroSuperTrow = false; 
         base.Start();
+        spawn_Supper_Shelly.hero = this;
+        spawn_Attack_Shelly.hero = this;
     }
     public override void Attack(float angle, bool isAvtoAttack)
     {

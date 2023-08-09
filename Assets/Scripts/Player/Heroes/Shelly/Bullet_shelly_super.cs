@@ -6,8 +6,8 @@ public class Bullet_shelly_super : Bullet_shelly
     {
         if (collision.CompareTag("Box"))
         {
-            collision.GetComponent<Box>().TakeDamage(MyHero.Instance.damageSuper);
-            MyHero.Instance.CollectSuper(1);
+            collision.GetComponent<Box>().TakeDamage(hero.damageSuper);
+            hero.CollectSuper(1);
         }
         if (collision.CompareTag("Enemy"))
         {

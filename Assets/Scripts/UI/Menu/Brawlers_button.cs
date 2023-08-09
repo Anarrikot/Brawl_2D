@@ -10,15 +10,19 @@ public class Brawlers_button : MonoBehaviour
     public Image backgroundRang;
     public Image imageBrawler;
 
-    public Brawlers_button(string name, int power, int trophi)
+    public void onClick()
     {
-        nameBrawler.text = name;
-        powerBrawler.text = power.ToString();
-        countTrophi.text = trophi.ToString();
+        foreach (Brawler brawler in PlayerInfo.Instance.myBrawlers.listBrawlers)
+        {
+            if (nameBrawler.text == brawler.name)
+            {
+                PlayerInfo.Instance.activeBravler = brawler;
+                CSVcontroller.Instance.SaveActiveBrawler(brawler);
+                Menu.Instance.SetActiveBrawler(brawler);
+                FindObjectOfType<ComonWindow>().Close();
+                return;
+            }
+        }
     }
 
-    public Brawlers_button(string name)
-    {
-        nameBrawler.text = name;
-    }
 }

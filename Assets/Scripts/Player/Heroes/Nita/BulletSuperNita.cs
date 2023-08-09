@@ -14,7 +14,7 @@ public class BulletSuperNita : MonoBehaviour
     public void Update()
     {
         transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
-        transform.position = Vector3.MoveTowards(transform.position, finishPosition, 0.005f);
+        transform.position = Vector3.MoveTowards(transform.position, finishPosition, 0.05f);
         if (transform.position == finishPosition)
         {
             if (nita.myBear != null)

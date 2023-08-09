@@ -7,6 +7,7 @@ public class Bullet_shelly : MonoBehaviour
     private readonly float timeAlive = 0.65f;
     public Rigidbody2D rb;
     public Vector2 direction;
+    public MyHero hero;
 
     public void Start()
     {
@@ -19,8 +20,8 @@ public class Bullet_shelly : MonoBehaviour
     {
         if (collision.CompareTag("Box"))
         {
-            collision.GetComponent<Box>().TakeDamage(MyHero.Instance.damage);
-            MyHero.Instance.CollectSuper(1);
+            collision.GetComponent<Box>().TakeDamage(hero.damage);
+            hero.CollectSuper(1);
             Destroy(gameObject);
         }
         if (collision.CompareTag("Enemy"))

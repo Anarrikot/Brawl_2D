@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class StaticJosticSuper : Joystick
 {
@@ -19,6 +20,10 @@ public class StaticJosticSuper : Joystick
         MoveThreshold = moveThreshold;
         base.Start();
         background.gameObject.SetActive(true);
+        colorHandle = background.GetComponent<Image>().color;
+        colorHandle.a = 0f;
+        background.GetComponent<Image>().color = colorHandle;
+        handle.GetComponent<Image>().color = Color.grey;
     }
 
     public override void OnPointerDown(PointerEventData eventData)
@@ -35,9 +40,9 @@ public class StaticJosticSuper : Joystick
         base.OnPointerUp(eventData);
         background.transform.position = startPosition;
         if (tapPosition == ScreenPointToAnchoredPosition(eventData.position))
-            MyHero.Instance.Super(angle, true);
+            playerMove.MyHero.Super(angle, true);
         else if (isMoveHandle && tapPosition != ScreenPointToAnchoredPosition(eventData.position))
-            MyHero.Instance.Super(angle, false);
+            playerMove.MyHero.Super(angle, false);
         isActiveSuper = false;
     }
 

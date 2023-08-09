@@ -4,6 +4,7 @@ using UnityEngine.SocialPlatforms;
 public class Spawn_attack_Nita : MonoBehaviour
 {
     public Bullet_Nita projectilePrefab;
+    public MyHero hero;
 
     public void Attack(float angle)
     {
@@ -12,5 +13,6 @@ public class Spawn_attack_Nita : MonoBehaviour
         Vector2 direction = Quaternion.Euler(0, 0, 0) * transform.right;
         projectile.direction = direction;
         projectile.transform.rotation = transform.rotation;
+        projectile.hero = hero;
     }
 }

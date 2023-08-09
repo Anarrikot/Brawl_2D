@@ -1,0 +1,2 @@
+C:\Users\Admin\Brawl 2D\obj\Debug\NavMeshComponentsEditor.csproj.AssemblyReference.cache
+C:\Users\Admin\Brawl 2D\obj\Debug\NavMeshComponentsEditor.csproj.CoreCompileInputs.cache

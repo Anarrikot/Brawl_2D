@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class DynamicJoystick : Joystick
 {
@@ -13,21 +14,28 @@ public class DynamicJoystick : Joystick
         startPosition = background.transform.position;
         MoveThreshold = moveThreshold;
         base.Start();
-        background.gameObject.SetActive(false);
+        background.gameObject.SetActive(true);
+        colorHandle = handle.GetComponent<Image>().color;
+        colorHandle.a = 0.5f;
+        handle.GetComponent<Image>().color = colorHandle;
     }
 
     public override void OnPointerDown(PointerEventData eventData)
     {
-        background.gameObject.SetActive(true);
         background.anchoredPosition = ScreenPointToAnchoredPosition(eventData.position);
         base.OnPointerDown(eventData);
+        colorHandle = handle.GetComponent<Image>().color;
+        colorHandle.a = 1f;
+        handle.GetComponent<Image>().color = colorHandle;
     }
 
     public override void OnPointerUp(PointerEventData eventData)
     {
         base.OnPointerUp(eventData);
         background.transform.position = startPosition;
-        background.gameObject.SetActive(false);
+        colorHandle = handle.GetComponent<Image>().color;
+        colorHandle.a = 0.5f;
+        handle.GetComponent<Image>().color = colorHandle;
     }
 
     protected override void HandleInput(float magnitude, Vector2 normalised, Vector2 radius, Camera cam)

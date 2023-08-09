@@ -6,6 +6,7 @@ public class Spawn_attack_shelly : MonoBehaviour
     public Bullet_shelly projectilePrefab;
     private int numShots = 5;
     private float angleBetweenShots = 5f;
+    public MyHero hero;
 
     public void Attack(float angel)
     {
@@ -23,6 +24,7 @@ public class Spawn_attack_shelly : MonoBehaviour
             Bullet_shelly projectile = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
             Vector2 direction = Quaternion.Euler(0, 0, startingAngle + i * angleBetweenShots) * transform.right;
             projectile.direction = direction;
+            projectile.hero = hero;
         }
 
     }

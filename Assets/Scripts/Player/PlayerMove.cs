@@ -14,7 +14,6 @@ public class PlayerMove : MonoBehaviour
     public StaticJosticSuper staticJosticSuper;
     public RectTransform staticJosticSuperObject;
     public MyHero MyHero;
-    public Collider2D heroCollider;
 
     public float atSpX;
     public float atSpY;
@@ -25,7 +24,15 @@ public class PlayerMove : MonoBehaviour
 
     public void Start()
     {
-        heroCollider = GetComponent<Collider2D>();
+        Brawler brawler = CSVcontroller.Instance.ReadCSVActiveBrawler();
+        MyHero = Instantiate(Resources.Load<MyHero>("Prefabs/Hero/" + brawler.name + "/" + brawler.name));
+        MyHero.transform.parent = transform;
+        MyHero.transform.localPosition = Vector3.zero;
+        MyHero.playerMove = this;
+        MyHero.lvl = brawler.power;
+        playerSprite = MyHero.GetComponent<Transform>();
+        attackSprite = MyHero.attackSprite;
+        superSprite = MyHero.superSprite;
         attackSprite.SetActive(false);
         superSprite.SetActive(false);
         atSpX = attackSprite.transform.localScale.x;

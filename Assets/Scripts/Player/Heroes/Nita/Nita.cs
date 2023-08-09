@@ -9,7 +9,6 @@ public class Nita : MyHero
 
     public override void Start()
     {
-        lvl = 1;
         bullets = 1;
         damage = Convert.ToInt32(Math.Round(960 + 960 * 0.05 * (lvl - 1)));
         damageSuper = Convert.ToInt32(Math.Round(400 + 400 * 0.05 * (lvl - 1)));
@@ -24,6 +23,7 @@ public class Nita : MyHero
         isHiroSuperTrow = true;
         base.Start();
 
+        spawn_Attack_Nita.hero = this;
         spawn_Super_Nita.lvlHero = lvl;
         spawn_Super_Nita.nita = this;
     }

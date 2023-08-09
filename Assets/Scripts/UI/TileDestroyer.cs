@@ -1,3 +1,4 @@
+using System.IO;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Tilemaps;
@@ -13,7 +14,7 @@ public class TileDestroyer : MonoBehaviour
         navMeshSurface = transform.parent.GetComponent<NavMeshSurface2d>();
     }
 
-    private void OnCollisionStay2D(Collision2D collision)
+    private void OnTriggerStay2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Bullet"))
         {

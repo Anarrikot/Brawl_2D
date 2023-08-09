@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SocialPlatforms;
 
 public class Scroll : MonoBehaviour
 {
@@ -13,9 +14,8 @@ public class Scroll : MonoBehaviour
 
     private void Start()
     {
-        PlayerInfo.Instance.GetInfo();
-
-        foreach (Brawler brawler in PlayerInfo.Instance.myBrawlers.listBrawlers)
+        PlayerInfo player = PlayerInfo.Instance.GetInfo();
+        foreach (Brawler brawler in player.myBrawlers.listBrawlers)
         {
             if (brawler.unlock)
             {
@@ -23,6 +23,7 @@ public class Scroll : MonoBehaviour
                 button.nameBrawler.text = brawler.name;
                 button.powerBrawler.text = brawler.power.ToString();
                 button.countTrophi.text = brawler.trophi.ToString();
+                button.imageBrawler.sprite = Resources.Load<Sprite>("Sprites/Menu/menu_brawler/" + brawler.name);
                 unlockBrawlersButton.Add(button);
             }
             else

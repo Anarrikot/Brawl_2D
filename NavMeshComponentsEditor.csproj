@@ -1,7 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <!-- Generated file, do not modify, your changes will be overwritten (use AssetPostprocessor.OnGeneratedCSProject) -->
   <PropertyGroup>
-    <LangVersion>latest</LangVersion>
+    <LangVersion>8.0</LangVersion>
   </PropertyGroup>
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -47,22 +48,25 @@
   <PropertyGroup>
     <ProjectTypeGuids>{E097FAD1-6243-4DAD-9C02-E9B9EFC3FFC1};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <UnityProjectGenerator>Package</UnityProjectGenerator>
-    <UnityProjectGeneratorVersion>2.0.11</UnityProjectGeneratorVersion>
+    <UnityProjectGeneratorVersion>2.0.20</UnityProjectGeneratorVersion>
     <UnityProjectType>Editor:5</UnityProjectType>
     <UnityBuildTarget>Android:13</UnityBuildTarget>
     <UnityVersion>2020.3.19f1</UnityVersion>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Assets\NavMesh2d\NavMeshPlus-master\NavMeshComponents\Editor\NavMeshComponentsGUIUtility.cs" />
-    <Compile Include="Assets\NavMesh2d\NavMeshPlus-master\NavMeshComponents\Editor\NavMeshLinkEditor.cs" />
+    <Analyzer Include="D:\VisualStudio\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\Microsoft.Unity.Analyzers.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Assets\NavMesh2d\NavMeshPlus-master\NavMeshComponents\Editor\NavMeshSurfaceEditor.cs" />
+    <Compile Include="Assets\NavMesh2d\NavMeshPlus-master\NavMeshComponents\Editor\NavMeshAssetManager2d.cs" />
     <Compile Include="Assets\NavMesh2d\NavMeshPlus-master\NavMeshComponents\Editor\NavMeshCollectSources2dEditor.cs" />
     <Compile Include="Assets\NavMesh2d\NavMeshPlus-master\NavMeshComponents\Editor\NavMeshModifierVolumeEditor.cs" />
-    <Compile Include="Assets\NavMesh2d\NavMeshPlus-master\NavMeshComponents\Editor\NavMeshModifierEditor.cs" />
     <Compile Include="Assets\NavMesh2d\NavMeshPlus-master\NavMeshComponents\Editor\NavMeshAssetManager.cs" />
-    <Compile Include="Assets\NavMesh2d\NavMeshPlus-master\NavMeshComponents\Editor\NavMeshSurfaceEditor.cs" />
     <Compile Include="Assets\NavMesh2d\NavMeshPlus-master\NavMeshComponents\Editor\NavMeshSurfaceEditor2d.cs" />
-    <Compile Include="Assets\NavMesh2d\NavMeshPlus-master\NavMeshComponents\Editor\NavMeshAssetManager2d.cs" />
+    <Compile Include="Assets\NavMesh2d\NavMeshPlus-master\NavMeshComponents\Editor\NavMeshModifierEditor.cs" />
     <Compile Include="Assets\NavMesh2d\NavMeshPlus-master\NavMeshComponents\Editor\NavMeshCollectRootSources2dEditor.cs" />
+    <Compile Include="Assets\NavMesh2d\NavMeshPlus-master\NavMeshComponents\Editor\NavMeshComponentsGUIUtility.cs" />
+    <Compile Include="Assets\NavMesh2d\NavMeshPlus-master\NavMeshComponents\Editor\NavMeshLinkEditor.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\NavMesh2d\NavMeshPlus-master\NavMeshComponents\Editor\NavMeshComponentsEditor.asmdef" />
@@ -662,11 +666,11 @@
     <Reference Include="System.Xml.XPath.XDocument">
       <HintPath>D:\Unity\2020.3.19f1\Editor\Data\MonoBleedingEdge\lib\mono\4.7.1-api\Facades\System.Xml.XPath.XDocument.dll</HintPath>
     </Reference>
-    <Reference Include="UnityEditor.UI">
-      <HintPath>Library\ScriptAssemblies\UnityEditor.UI.dll</HintPath>
-    </Reference>
     <Reference Include="UnityEngine.UI">
       <HintPath>Library\ScriptAssemblies\UnityEngine.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.UI">
+      <HintPath>Library\ScriptAssemblies\UnityEditor.UI.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.TestRunner">
       <HintPath>Library\ScriptAssemblies\UnityEngine.TestRunner.dll</HintPath>

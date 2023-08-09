@@ -8,6 +8,7 @@ public class Bullet_Nita : MonoBehaviour
     public Rigidbody2D rb;
     public Vector2 direction;
     public List<GameObject> listDamage;
+    public MyHero hero;
 
     public void Start()
     {
@@ -21,8 +22,8 @@ public class Bullet_Nita : MonoBehaviour
         if (collision.CompareTag("Box") && !listDamage.Contains(collision.gameObject))
         {
             listDamage.Add(collision.gameObject);
-            collision.GetComponent<Box>().TakeDamage(MyHero.Instance.damage);
-            MyHero.Instance.CollectSuper(1);
+            collision.GetComponent<Box>().TakeDamage(hero.damage);
+            hero.CollectSuper(1);
         }
         if (collision.CompareTag("Enemy"))
         {
