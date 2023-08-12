@@ -28,6 +28,7 @@ public class MyHero : MonoBehaviour
     public List<GameObject> AmmoList;
     public GameObject AmmoBackground;
 
+    public GameObject Cirle;
     public GameObject Cirle_supre;
 
     public GameObject attackSprite;
@@ -147,10 +148,13 @@ public class MyHero : MonoBehaviour
                 angleSuper = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
             }
         }
-        playerMove.staticJosticSuper.colorHandle = playerMove.staticJosticSuper.background.GetComponent<Image>().color;
-        playerMove.staticJosticSuper.colorHandle.a = 0f;
-        playerMove.staticJosticSuper.background.GetComponent<Image>().color = playerMove.staticJosticSuper.colorHandle;
-        playerMove.staticJosticSuper.handle.GetComponent<Image>().color = Color.grey;
+        if (playerMove != null)
+        {
+            playerMove.staticJosticSuper.colorHandle = playerMove.staticJosticSuper.background.GetComponent<Image>().color;
+            playerMove.staticJosticSuper.colorHandle.a = 0f;
+            playerMove.staticJosticSuper.background.GetComponent<Image>().color = playerMove.staticJosticSuper.colorHandle;
+            playerMove.staticJosticSuper.handle.GetComponent<Image>().color = Color.grey;
+        }
     }
 
     public  void TakeDamage(int damage)
@@ -159,6 +163,8 @@ public class MyHero : MonoBehaviour
         HPslide.transform.localScale = new Vector3((float)(hp) / maxhp, HPslide.transform.localScale.y, HPslide.transform.localScale.z);
         float newPosX = -(1f - HPslide.transform.localScale.x) / 2;
         HPslide.transform.localPosition = new Vector3(newPosX, HPslide.transform.localPosition.y, 0f);
+        timeHeal = 0;
+        timeStartHeal = 0;
     }
 
     public void Heal()
@@ -190,7 +196,8 @@ public class MyHero : MonoBehaviour
             timeReload += Time.deltaTime;
             if (timeReload >= reloadtime)
             {
-                AmmoList[ammo].transform.localScale = new Vector3((float)(1f / maxammo - 0.01), AmmoList[ammo].transform.localScale.y, AmmoList[ammo].transform.localScale.z);
+                if (gameObject.transform.parent.GetComponent<PlayerMove>() != null)
+                    AmmoList[ammo].transform.localScale = new Vector3((float)(1f / maxammo - 0.01), AmmoList[ammo].transform.localScale.y, AmmoList[ammo].transform.localScale.z);
                 ammo += 1;
                 timeReload = 0;
             }
@@ -206,27 +213,30 @@ public class MyHero : MonoBehaviour
 
     public void SetAmmo()
     {
-        if (maxammo > 1)
+        if (gameObject.transform.parent.GetComponent<PlayerMove>() != null)
         {
-            float scaleAmmo = (float)(1f / maxammo - 0.01);
-            float distanceBetweenPatrons = (float)(scaleAmmo + 0.04 / (maxammo - 1));
-            float totalWidth = maxammo * distanceBetweenPatrons;
-            float startX = -totalWidth / 2 + distanceBetweenPatrons / 2;
-            for (int i = 0; i < maxammo; i++)
+            if (maxammo > 1)
+            {
+                float scaleAmmo = (float)(1f / maxammo - 0.01);
+                float distanceBetweenPatrons = (float)(scaleAmmo + 0.04 / (maxammo - 1));
+                float totalWidth = maxammo * distanceBetweenPatrons;
+                float startX = -totalWidth / 2 + distanceBetweenPatrons / 2;
+                for (int i = 0; i < maxammo; i++)
+                {
+                    AmmoList.Add(Instantiate(Ammoslide, transform.position, Quaternion.identity));
+                    AmmoList[i].transform.parent = transform.parent;
+                    AmmoList[i].transform.localScale = new Vector3(scaleAmmo, AmmoList[i].transform.localScale.y, AmmoList[i].transform.localScale.z);
+                    float posX = startX + i * distanceBetweenPatrons;
+                    AmmoList[i].transform.position = new Vector3(HPslide.transform.position.x + posX, HPslide.transform.position.y - HPslide.GetComponent<SpriteRenderer>().bounds.size.y, HPslide.transform.position.z);
+                }
+            }
+            else
             {
                 AmmoList.Add(Instantiate(Ammoslide, transform.position, Quaternion.identity));
-                AmmoList[i].transform.parent = transform.parent;
-                AmmoList[i].transform.localScale = new Vector3(scaleAmmo, AmmoList[i].transform.localScale.y, AmmoList[i].transform.localScale.z);
-                float posX = startX + i * distanceBetweenPatrons;
-                AmmoList[i].transform.position = new Vector3(HPslide.transform.position.x + posX, HPslide.transform.position.y - HPslide.GetComponent<SpriteRenderer>().bounds.size.y, HPslide.transform.position.z);
+                AmmoList[0].transform.parent = transform.parent;
+                AmmoList[0].transform.position = new Vector3(HPslide.transform.position.x, HPslide.transform.position.y - HPslide.GetComponent<SpriteRenderer>().bounds.size.y, HPslide.transform.position.z);
+                AmmoBackground.transform.localScale = AmmoList[0].transform.localScale;
             }
-        }
-        else
-        {
-            AmmoList.Add(Instantiate(Ammoslide, transform.position, Quaternion.identity));
-            AmmoList[0].transform.parent = transform.parent;
-            AmmoList[0].transform.position = new Vector3(HPslide.transform.position.x, HPslide.transform.position.y - HPslide.GetComponent<SpriteRenderer>().bounds.size.y, HPslide.transform.position.z);
-            AmmoBackground.transform.localScale = AmmoList[0].transform.localScale;
         }
     }
 
@@ -237,12 +247,15 @@ public class MyHero : MonoBehaviour
         {
             if (!isSuperReady)
             {
-                playerMove.staticJosticSuperObject.SetSiblingIndex(playerMove.staticJosticSuperObject.GetSiblingIndex() + 1);
+                if (playerMove != null)
+                {
+                    playerMove.staticJosticSuperObject.SetSiblingIndex(playerMove.staticJosticSuperObject.GetSiblingIndex() + 1);
 
-                playerMove.staticJosticSuper.colorHandle = playerMove.staticJosticSuper.background.GetComponent<Image>().color;
-                playerMove.staticJosticSuper.colorHandle.a = 0.5f;
-                playerMove.staticJosticSuper.background.GetComponent<Image>().color = playerMove.staticJosticSuper.colorHandle;
-                playerMove.staticJosticSuper.handle.GetComponent<Image>().color = Color.yellow;
+                    playerMove.staticJosticSuper.colorHandle = playerMove.staticJosticSuper.background.GetComponent<Image>().color;
+                    playerMove.staticJosticSuper.colorHandle.a = 0.5f;
+                    playerMove.staticJosticSuper.background.GetComponent<Image>().color = playerMove.staticJosticSuper.colorHandle;
+                    playerMove.staticJosticSuper.handle.GetComponent<Image>().color = Color.yellow;
+                }
 
                 isSuperReady = true;
                 Cirle_supre.SetActive(true);

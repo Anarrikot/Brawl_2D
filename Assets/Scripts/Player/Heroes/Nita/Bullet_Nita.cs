@@ -25,8 +25,14 @@ public class Bullet_Nita : MonoBehaviour
             collision.GetComponent<Box>().TakeDamage(hero.damage);
             hero.CollectSuper(1);
         }
-        if (collision.CompareTag("Enemy"))
+        if (collision.CompareTag("Enemy") && !listDamage.Contains(collision.gameObject))
         {
+            if (!collision.gameObject == hero.gameObject)
+            {
+                listDamage.Add(collision.gameObject);
+                collision.transform.GetComponentInChildren<MyHero>().TakeDamage(hero.damage);
+                hero.CollectSuper(1);
+            }
         }
     }
 }

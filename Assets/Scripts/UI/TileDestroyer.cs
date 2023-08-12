@@ -20,7 +20,16 @@ public class TileDestroyer : MonoBehaviour
         {
             Vector3 hitPosition = collision.transform.position;
             destructibleTilemap.SetTile(destructibleTilemap.WorldToCell(hitPosition), null);
+            TileBase tile = destructibleTilemap.GetTile(destructibleTilemap.WorldToCell(hitPosition));
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Bullet"))
+        {
             navMeshSurface.BuildNavMesh();
+            Debug.Log("!");
         }
     }
 }

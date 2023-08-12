@@ -96,7 +96,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   finishPosition: {x: 0, y: 0, z: 0}
-  projectilePrefab: {fileID: 9081795633535787488, guid: b371e58f6fe31414bad1a32fb3feed0b,
+  projectilePrefab: {fileID: 5342514469666841917, guid: 43db03e4b67095a4f805ba7337690cc4,
     type: 3}
   parant: {fileID: 0}
   lvlHero: 0

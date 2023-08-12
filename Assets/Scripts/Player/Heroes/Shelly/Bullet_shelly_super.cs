@@ -11,6 +11,11 @@ public class Bullet_shelly_super : Bullet_shelly
         }
         if (collision.CompareTag("Enemy"))
         {
+            if (!collision.gameObject == hero.gameObject)
+            {
+                collision.GetComponent<MyHero>().TakeDamage(hero.damage);
+                hero.CollectSuper(1);
+            }
         }
         if (collision.CompareTag("WallNotDestroy"))
         {

@@ -35,7 +35,8 @@ public class Nita : MyHero
             if (timeAttack >= timedelayattack)
             {
                 ammo -= 1;
-                AmmoList[ammo].transform.localScale = new Vector3(0, AmmoList[ammo].transform.localScale.y, AmmoList[ammo].transform.localScale.z);
+                if (gameObject.transform.parent.GetComponent<PlayerMove>() != null)
+                    AmmoList[ammo].transform.localScale = new Vector3(0, AmmoList[ammo].transform.localScale.y, AmmoList[ammo].transform.localScale.z);
                 spawn_Attack_Nita.Attack(angleAttack);
                 timeAttack = 0;
             }
@@ -53,7 +54,8 @@ public class Nita : MyHero
                 spawn_Super_Nita.Attack(angleSuper, false);
             isSuperReady = false;
             Cirle_supre.SetActive(false);
-            playerMove.staticJosticSuperObject.SetSiblingIndex(playerMove.staticJosticSuperObject.GetSiblingIndex() - 1);
+            if (gameObject.transform.parent.GetComponent<PlayerMove>() != null)
+                playerMove.staticJosticSuperObject.SetSiblingIndex(playerMove.staticJosticSuperObject.GetSiblingIndex() - 1);
             bulletforsuper = 0;
         }
     }

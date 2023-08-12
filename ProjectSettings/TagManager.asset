@@ -10,6 +10,7 @@ TagManager:
   - Bullet
   - WallNotDestroy
   - Entity
+  - Teammate
   layers:
   - Default
   - TransparentFX

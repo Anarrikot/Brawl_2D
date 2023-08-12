@@ -32,7 +32,8 @@ public class Shelly : MyHero
             if (timeAttack >= timedelayattack)
             {
                 ammo -= 1;
-                AmmoList[ammo].transform.localScale = new Vector3(0, AmmoList[ammo].transform.localScale.y, AmmoList[ammo].transform.localScale.z);
+                if (gameObject.transform.parent.GetComponent<PlayerMove>() != null)
+                    AmmoList[ammo].transform.localScale = new Vector3(0, AmmoList[ammo].transform.localScale.y, AmmoList[ammo].transform.localScale.z);
                 spawn_Attack_Shelly.Attack(angleAttack);
                 timeAttack = 0;
             }
@@ -47,7 +48,8 @@ public class Shelly : MyHero
             spawn_Supper_Shelly.Attack(angleSuper);
             isSuperReady = false;
             Cirle_supre.SetActive(false);
-            playerMove.staticJosticSuperObject.SetSiblingIndex(playerMove.staticJosticSuperObject.GetSiblingIndex() - 1);
+            if (gameObject.transform.parent.GetComponent<PlayerMove>() != null)
+                playerMove.staticJosticSuperObject.SetSiblingIndex(playerMove.staticJosticSuperObject.GetSiblingIndex() - 1);
             bulletforsuper = 0;
         }
     }
